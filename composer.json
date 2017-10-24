@@ -1,19 +1,18 @@
 {
-	"name": "segmentio/analytics-php",
-	"version": "1.5.2",
-	"description": "Segment Analytics PHP Library",
+	"name": "plainflow/plainflow",
+	"version": "1.5.2-p1",
+	"description": "Plainflow PHP Library",
 	"keywords": [
 		"analytics",
-		"segmentio",
-		"segment",
-		"analytics.js"
+		"plainflow",
+		"plainflow.com"
 	],
-	"homepage": "https://segment.com/libraries/php",
+	"homepage": "https://www.plainflow.com/docs/developers/sdk/php",
 	"license": "MIT",
 	"authors": [
 		{
-			"name": "Segment.io <friends@segment.com>",
-			"homepage": "https://segment.com/"
+			"name": "Plainflow <friends@plainflow.com>",
+			"homepage": "https://www.plainflow.com/"
 		}
 	],
 	"require": {
@@ -24,10 +23,10 @@
 	},
 	"autoload": {
 		"files": [
-			"lib/Segment.php"
+			"lib/Plainflow.php"
 		]
 	},
 	"bin": [
-		"bin/analytics"
+		"bin/plainflow"
 	]
 }

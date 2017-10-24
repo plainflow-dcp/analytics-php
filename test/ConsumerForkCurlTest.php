@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__) . "/../lib/Segment/Client.php");
+require_once(dirname(__FILE__) . "/../lib/Plainflow/Client.php");
 
 class ConsumerForkCurlTest extends PHPUnit_Framework_TestCase {
 
@@ -8,7 +8,7 @@ class ConsumerForkCurlTest extends PHPUnit_Framework_TestCase {
 
   function setUp() {
     date_default_timezone_set("UTC");
-    $this->client = new Segment_Client("oq0vdlg7yi",
+    $this->client = new Plainflow_Client("oq0vdlg7yi",
                           array("consumer" => "fork_curl",
                                 "debug"    => true));
   }
@@ -44,7 +44,7 @@ class ConsumerForkCurlTest extends PHPUnit_Framework_TestCase {
   function testPage(){
     $this->assertTrue($this->client->page(array(
       "userId" => "userId",
-      "name" => "analytics-php",
+      "name" => "plainflow-php",
       "category" => "fork-curl",
       "properties" => array(
         "url" => "https://a.url/"
@@ -55,7 +55,7 @@ class ConsumerForkCurlTest extends PHPUnit_Framework_TestCase {
   function testScreen(){
     $this->assertTrue($this->client->page(array(
       "anonymousId" => "anonymous-id",
-      "name" => "grand theft auto",
+      "name" => "Vette!",
       "category" => "fork-curl",
       "properties" => array()
     )));

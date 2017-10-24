@@ -4,7 +4,7 @@
  * require client
  */
 
-require_once(__DIR__ . "/lib/Segment.php");
+require_once(__DIR__ . "/lib/Plainflow.php");
 
 /**
  * Args
@@ -29,7 +29,7 @@ if ($file[0] != '/') $file = __DIR__ . "/" . $file;
 
 $dir = dirname($file);
 $old = $file;
-$file = $dir . '/analytics-' . rand() . '.log';
+$file = $dir . '/plainflow-' . rand() . '.log';
 
 if(!file_exists($old)) {
   print("file: $old does not exist");
@@ -52,7 +52,7 @@ $lines = explode("\n", $contents);
  * Initialize the client.
  */
 
-Segment::init($args["secret"], array(
+Plainflow::init($args["secret"], array(
   "debug" => true,
   "error_handler" => function($code, $msg){
     print("$code: $msg\n");
@@ -73,13 +73,13 @@ foreach ($lines as $line) {
   $ts = floatval($dt->getTimestamp() . "." . $dt->format("u"));
   $payload["timestamp"] = $ts;
   $type = $payload["type"];
-  $ret = call_user_func_array(array("Segment", $type), array($payload));
+  $ret = call_user_func_array(array("Plainflow", $type), array($payload));
   if ($ret) $successful++;
   $total++;
-  if ($total % 100 === 0) Segment::flush();
+  if ($total % 100 === 0) Plainflow::flush();
 }
 
-Segment::flush();
+Plainflow::flush();
 unlink($file);
 
 /**

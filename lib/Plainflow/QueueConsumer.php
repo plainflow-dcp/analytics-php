@@ -1,5 +1,5 @@
 <?php
-abstract class Segment_QueueConsumer extends Segment_Consumer {
+abstract class Plainflow_QueueConsumer extends Plainflow_Consumer {
 
   protected $type = "QueueConsumer";
 

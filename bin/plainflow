@@ -1,19 +1,19 @@
 #!/usr/bin/env php
 <?php
 
-require_once(__DIR__ . '/../lib/Segment.php');
+require_once(__DIR__ . '/../lib/Plainflow.php');
 
 if (in_array('--help', $argv)) {
   print(usage());
   exit;
 }
 
-if (empty($_ENV['SEGMENT_WRITE_KEY'])) {
-  error('$SEGMENT_WRITE_KEY environment variable required');
+if (empty($_ENV['PLAINFLOW_SECRET_KEY'])) {
+  error('$PLAINFLOW_SECRET_KEY environment variable required');
 }
 
 date_default_timezone_set('UTC');
-Segment::init($_ENV['SEGMENT_WRITE_KEY']);
+Plainflow::init($_ENV['PLAINFLOW_SECRET_KEY']);
 
 $options = getopt('', [
   'method:',        // T I P G A
@@ -32,7 +32,7 @@ $options = getopt('', [
 
 switch ($options['method']) {
   case 'track':
-    Segment::track(array(
+    Plainflow::track(array(
       'userId' => $options['userId'],
       'anonymousId' => $options['anonymousId'],
       'event' => $options['event'],
@@ -43,7 +43,7 @@ switch ($options['method']) {
     break;
 
   case 'identify':
-    Segment::identify(array(
+    Plainflow::identify(array(
       'userId' => $options['userId'],
       'anonymousId' => $options['anonymousId'],
       'traits' => parse_json($options['traits']),
@@ -53,7 +53,7 @@ switch ($options['method']) {
     break;
 
   case 'page':
-    Segment::page(array(
+    Plainflow::page(array(
       'userId' => $options['userId'],
       'anonymousId' => $options['anonymousId'],
       'name' => $options['name'],
@@ -65,7 +65,7 @@ switch ($options['method']) {
     break;
 
   case 'group':
-    Segment::identify(array(
+    Plainflow::identify(array(
       'userId' => $options['userId'],
       'anonymousId' => $options['anonymousId'],
       'groupId' => $options['groupId'],
@@ -76,7 +76,7 @@ switch ($options['method']) {
     break;
 
   case 'alias':
-    Segment::alias(array(
+    Plainflow::alias(array(
       'userId' => $options['userId'],
       'previousId' => $options['previousId']
     ));
@@ -87,10 +87,10 @@ switch ($options['method']) {
     break;
 }
 
-Segment::flush();
+Plainflow::flush();
 
 function usage() {
-  return "\n  Usage: analytics --method <track|identify|page|group|alias> [options]\n\n";
+  return "\n  Usage: plainflow --method <track|identify|page|group|alias> [options]\n\n";
 }
 
 function error($message) {

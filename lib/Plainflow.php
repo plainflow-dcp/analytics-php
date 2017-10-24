@@ -1,13 +1,13 @@
 <?php
 
 if (!function_exists('json_encode')) {
-    throw new Exception('Segment needs the JSON PHP extension.');
+    throw new Exception('Plainflow needs the JSON PHP extension.');
 }
 
-require_once(dirname(__FILE__) . '/Segment/Client.php');
+require_once(dirname(__FILE__) . '/Plainflow/Client.php');
 
 
-class Segment {
+class Plainflow {
 
   private static $client;
 
@@ -17,8 +17,8 @@ class Segment {
    * @param  array  $options  passed straight to the client
    */
   public static function init($secret, $options = array()) {
-    self::assert($secret, "Segment::init() requires secret");
-    self::$client = new Segment_Client($secret, $options);
+    self::assert($secret, "Plainflow::init() requires secret");
+    self::$client = new Plainflow_Client($secret, $options);
   }
 
   /**
@@ -30,7 +30,7 @@ class Segment {
   public static function track(array $message) {
     self::checkClient();
     $event = !empty($message["event"]);
-    self::assert($event, "Segment::track() expects an event");
+    self::assert($event, "Plainflow::track() expects an event");
     self::validate($message, "track");
     return self::$client->track($message);
   }
@@ -57,7 +57,7 @@ class Segment {
   public static function group(array $message) {
     self::checkClient();
     $groupId = !empty($message["groupId"]);
-    self::assert($groupId, "Segment::group() expects groupId");
+    self::assert($groupId, "Plainflow::group() expects groupId");
     self::validate($message, "group");
     return self::$client->group($message);
   }
@@ -96,7 +96,7 @@ class Segment {
     self::checkClient();
     $userId = !empty($message["userId"]);
     $previousId = !empty($message["previousId"]);
-    self::assert($userId && $previousId, "Segment::alias() requires both userId and previousId");
+    self::assert($userId && $previousId, "Plainflow::alias() requires both userId and previousId");
     return self::$client->alias($message);
   }
 
@@ -109,7 +109,7 @@ class Segment {
   public static function validate($msg, $type){
     $userId = !empty($msg["userId"]);
     $anonId = !empty($msg["anonymousId"]);
-    self::assert($userId || $anonId, "Segment::$type() requires userId or anonymousId");
+    self::assert($userId || $anonId, "Plainflow::$type() requires userId or anonymousId");
   }
 
   /**
@@ -128,7 +128,7 @@ class Segment {
    */
   private static function checkClient(){
     if (null != self::$client) return;
-    throw new Exception("Segment::init() must be called before any other tracking method.");
+    throw new Exception("Plainflow::init() must be called before any other tracking method.");
   }
 
   /**

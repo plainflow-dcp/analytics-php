@@ -1,5 +1,5 @@
 <?php
-abstract class Segment_Consumer {
+abstract class Plainflow_Consumer {
 
   protected $type = "Consumer";
 
@@ -98,7 +98,11 @@ abstract class Segment_Consumer {
     }
 
     if ($this->debug()) {
-      error_log("[Analytics][" . $this->type . "] " . $msg);
+        if(is_array($msg)) {
+            error_log("[Plainflow][" . $this->type . "] " . print_r($msg, true));
+        } else {
+            error_log("[Plainflow][" . $this->type . "] " . $msg);
+        }
     }
   }
 }

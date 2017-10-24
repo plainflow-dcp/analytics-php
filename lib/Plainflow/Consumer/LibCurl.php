@@ -1,6 +1,6 @@
 <?php
 
-class Segment_Consumer_LibCurl extends Segment_QueueConsumer {
+class Plainflow_Consumer_LibCurl extends Plainflow_QueueConsumer {
 
   protected $type = "LibCurl";
 
@@ -35,7 +35,7 @@ class Segment_Consumer_LibCurl extends Segment_QueueConsumer {
     $secret = $this->secret;
 
     $protocol = $this->ssl() ? "https://" : "http://";
-    $host = "api.segment.io";
+    $host = "pipe.plainflow.net";
     $path = "/v1/import";
     $url = $protocol . $host . $path;
 

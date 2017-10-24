@@ -8,12 +8,12 @@ require_once(__DIR__ . '/Consumer/LibCurl.php');
 require_once(__DIR__ . '/Consumer/Socket.php');
 require_once(__DIR__ . '/Version.php');
 
-class Segment_Client {
+class Plainflow_Client {
 
   protected $consumer;
 
   /**
-   * Create a new analytics object with your app's secret
+   * Create a new Plainflow object with your app's secret
    * key
    *
    * @param string $secret
@@ -24,10 +24,10 @@ class Segment_Client {
   public function __construct($secret, $options = array()) {
 
     $consumers = array(
-      "socket"     => "Segment_Consumer_Socket",
-      "file"       => "Segment_Consumer_File",
-      "fork_curl"  => "Segment_Consumer_ForkCurl",
-      "lib_curl"   => "Segment_Consumer_LibCurl"
+      "socket"     => "Plainflow_Consumer_Socket",
+      "file"       => "Plainflow_Consumer_File",
+      "fork_curl"  => "Plainflow_Consumer_ForkCurl",
+      "lib_curl"   => "Plainflow_Consumer_LibCurl"
     );
 
     # Use our socket libcurl by default
@@ -209,14 +209,14 @@ class Segment_Client {
   }
 
   /**
-   * Add the segment.io context to the request
+   * Add the plainflow.com context to the request
    * @return array additional context
    */
   private function getDefaultContext () {
     global $SEGMENT_VERSION;
     return array(
       "library" => array(
-        "name" => "analytics-php",
+        "name" => "plainflow-php",
         "version" => $SEGMENT_VERSION,
         "consumer" => $this->consumer->getConsumer()
       )

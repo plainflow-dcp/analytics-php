@@ -1,6 +1,6 @@
 <?php
 
-class Segment_Consumer_Socket extends Segment_QueueConsumer {
+class Plainflow_Consumer_Socket extends Plainflow_QueueConsumer {
 
   protected $type = "Socket";
   private $socket_failed;
@@ -24,7 +24,7 @@ class Segment_Consumer_Socket extends Segment_QueueConsumer {
       $options["timeout"] = 5;
 
     if (!isset($options["host"]))
-      $options["host"] = "api.segment.io";
+      $options["host"] = "pipe.plainflow.net";
 
     parent::__construct($secret, $options);
   }

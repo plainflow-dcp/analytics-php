@@ -1,23 +1,23 @@
 <?php
 
-require_once(dirname(__FILE__) . "/../lib/Segment.php");
+require_once(dirname(__FILE__) . "/../lib/Plainflow.php");
 
-class AnalyticsTest extends PHPUnit_Framework_TestCase {
+class PlainflowTest extends PHPUnit_Framework_TestCase {
 
   function setUp() {
     date_default_timezone_set("UTC");
-    Segment::init("oq0vdlg7yi", array("debug" => true));
+    Plainflow::init("oq0vdlg7yi", array("debug" => true));
   }
 
   function testTrack() {
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "john",
       "event" => "Module PHP Event"
     )));
   }
 
   function testGroup(){
-    $this->assertTrue(Segment::group(array(
+    $this->assertTrue(Plainflow::group(array(
       "groupId" => "group-id",
       "userId" => "user-id",
       "traits" => array(
@@ -27,7 +27,7 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase {
   }
 
   function testGroupAnonymous(){
-    $this->assertTrue(Segment::group(array(
+    $this->assertTrue(Plainflow::group(array(
         "groupId" => "group-id",
         "anonymousId" => "anonymous-id",
         "traits" => array(
@@ -38,10 +38,10 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase {
 
   /**
    * @expectedException \Exception
-   * @expectedExceptionMessage Segment::group() requires userId or anonymousId
+   * @expectedExceptionMessage Plainflow::group() requires userId or anonymousId
    */
   function testGroupNoUser() {
-    Segment::group(array(
+    Plainflow::group(array(
         "groupId" => "group-id",
         "traits" => array(
             "plan" => "startup"
@@ -50,38 +50,38 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase {
   }
 
   function testMicrotime(){
-    $this->assertTrue(Segment::page(array(
+    $this->assertTrue(Plainflow::page(array(
       "anonymousId" => "anonymous-id",
-      "name" => "analytics-php-microtime",
+      "name" => "plainflow-php-microtime",
       "category" => "docs",
       "timestamp" => microtime(true),
       "properties" => array(
         "path" => "/docs/libraries/php/",
-        "url" => "https://segment.io/docs/libraries/php/"
+        "url" => "https://www.plainflow.com/docs/developers/sdk/php"
       )
     )));
   }
 
   function testPage(){
-    $this->assertTrue(Segment::page(array(
+    $this->assertTrue(Plainflow::page(array(
       "anonymousId" => "anonymous-id",
-      "name" => "analytics-php",
+      "name" => "plainflow-php",
       "category" => "docs",
       "properties" => array(
         "path" => "/docs/libraries/php/",
-        "url" => "https://segment.io/docs/libraries/php/"
+        "url" => "https://www.plainflow.com/docs/developers/sdk/php"
       )
     )));
   }
 
   function testBasicPage(){
-    $this->assertTrue(Segment::page(array(
+    $this->assertTrue(Plainflow::page(array(
       "anonymousId" => "anonymous-id"
     )));
   }
 
   function testScreen(){
-    $this->assertTrue(Segment::screen(array(
+    $this->assertTrue(Plainflow::screen(array(
       "anonymousId" => "anonymous-id",
       "name" => "2048",
       "category" => "game built with php :)",
@@ -92,13 +92,13 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase {
   }
 
   function testBasicScreen(){
-    $this->assertTrue(Segment::screen(array(
+    $this->assertTrue(Plainflow::screen(array(
       "anonymousId" => "anonymous-id"
     )));
   }
 
   function testIdentify() {
-    $this->assertTrue(Segment::identify(array(
+    $this->assertTrue(Plainflow::identify(array(
       "userId" => "doe",
       "traits" => array(
         "loves_php" => false,
@@ -108,23 +108,23 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase {
   }
 
   function testEmptyTraits() {
-    $this->assertTrue(Segment::identify(array(
+    $this->assertTrue(Plainflow::identify(array(
       "userId" => "empty-traits"
     )));
 
-    $this->assertTrue(Segment::group(array(
+    $this->assertTrue(Plainflow::group(array(
       "userId" => "empty-traits",
       "groupId" => "empty-traits"
     )));
   }
 
   function testEmptyArrayTraits() {
-    $this->assertTrue(Segment::identify(array(
+    $this->assertTrue(Plainflow::identify(array(
       "userId" => "empty-traits",
       "traits" => array()
     )));
 
-    $this->assertTrue(Segment::group(array(
+    $this->assertTrue(Plainflow::group(array(
       "userId" => "empty-traits",
       "groupId" => "empty-traits",
       "traits" => array()
@@ -132,12 +132,12 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase {
   }
 
   function testEmptyProperties() {
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "empty-properties"
     )));
 
-    $this->assertTrue(Segment::page(array(
+    $this->assertTrue(Plainflow::page(array(
       "category" => "empty-properties",
       "name" => "empty-properties",
       "userId" => "user-id"
@@ -145,13 +145,13 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase {
   }
 
   function testEmptyArrayProperties(){
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "empty-properties",
       "properties" => array()
     )));
 
-    $this->assertTrue(Segment::page(array(
+    $this->assertTrue(Plainflow::page(array(
       "category" => "empty-properties",
       "name" => "empty-properties",
       "userId" => "user-id",
@@ -160,14 +160,14 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase {
   }
 
   function testAlias() {
-    $this->assertTrue(Segment::alias(array(
+    $this->assertTrue(Plainflow::alias(array(
       "previousId" => "previous-id",
       "userId" => "user-id"
     )));
   }
 
   function testContextEmpty() {
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "Context Test",
       "context" => array()
@@ -175,7 +175,7 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase {
   }
 
   function testContextCustom() {
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "Context Test",
       "context" => array(
@@ -185,43 +185,43 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase {
   }
 
   function testTimestamps() {
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "integer-timestamp",
       "timestamp" => (int) mktime(0, 0, 0, date('n'), 1, date('Y'))
     )));
 
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "string-integer-timestamp",
       "timestamp" => (string) mktime(0, 0, 0, date('n'), 1, date('Y'))
     )));
 
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "iso8630-timestamp",
       "timestamp" => date(DATE_ATOM, mktime(0, 0, 0, date('n'), 1, date('Y')))
     )));
 
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "iso8601-timestamp",
       "timestamp" => date(DATE_ATOM, mktime(0, 0, 0, date('n'), 1, date('Y')))
     )));
 
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "strtotime-timestamp",
       "timestamp" => strtotime('1 week ago')
     )));
 
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "microtime-timestamp",
       "timestamp" => microtime(true)
     )));
 
-    $this->assertTrue(Segment::track(array(
+    $this->assertTrue(Plainflow::track(array(
       "userId" => "user-id",
       "event" => "invalid-float-timestamp",
       "timestamp" => ((string) mktime(0, 0, 0, date('n'), 1, date('Y'))) . '.'

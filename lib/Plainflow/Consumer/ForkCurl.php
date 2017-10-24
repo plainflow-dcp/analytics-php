@@ -1,6 +1,6 @@
 <?php
 
-class Segment_Consumer_ForkCurl extends Segment_QueueConsumer {
+class Plainflow_Consumer_ForkCurl extends Plainflow_QueueConsumer {
 
   protected $type = "ForkCurl";
 
@@ -39,7 +39,7 @@ class Segment_Consumer_ForkCurl extends Segment_QueueConsumer {
     $secret = $this->secret;
 
     $protocol = $this->ssl() ? "https://" : "http://";
-    $host = "api.segment.io";
+    $host = "pipe.plainflow.net";
     $path = "/v1/import";
     $url = $protocol . $host . $path;
 

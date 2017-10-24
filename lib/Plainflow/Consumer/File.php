@@ -1,6 +1,6 @@
 <?php
 
-class Segment_Consumer_File extends Segment_Consumer {
+class Plainflow_Consumer_File extends Plainflow_Consumer {
 
   private $file_handle;
   protected $type = "File";
@@ -14,12 +14,12 @@ class Segment_Consumer_File extends Segment_Consumer {
    * The file consumer writes track and identify calls to a file.
    * @param string $secret
    * @param array  $options
-   *     string "filename" - where to log the analytics calls
+   *     string "filename" - where to log the plainflow calls
    */
   public function __construct($secret, $options = array()) {
 
     if (!isset($options["filename"]))
-      $options["filename"] = sys_get_temp_dir() . DIRECTORY_SEPARATOR . "analytics.log";
+      $options["filename"] = sys_get_temp_dir() . DIRECTORY_SEPARATOR . "plainflow.log";
 
     parent::__construct($secret, $options);
 

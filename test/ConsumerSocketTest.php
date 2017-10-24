@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__FILE__) . "/../lib/Segment/Client.php");
+require_once(dirname(__FILE__) . "/../lib/Plainflow/Client.php");
 
 class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
 
@@ -8,7 +8,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
 
   function setUp() {
     date_default_timezone_set("UTC");
-    $this->client = new Segment_Client("oq0vdlg7yi",
+    $this->client = new Plainflow_Client("oq0vdlg7yi",
                                           array("consumer" => "socket"));
   }
 
@@ -42,7 +42,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
   function testPage(){
     $this->assertTrue($this->client->page(array(
       "userId" => "user-id",
-      "name" => "analytics-php",
+      "name" => "plainflow-php",
       "category" => "socket",
       "properties" => array(
         "url" => "https://a.url/"
@@ -67,7 +67,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
   }
 
   function testShortTimeout() {
-    $client = new Segment_Client("oq0vdlg7yi",
+    $client = new Plainflow_Client("oq0vdlg7yi",
                                    array( "timeout"  => 0.01,
                                           "consumer" => "socket" ));
 
@@ -85,7 +85,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
   }
 
   function testProductionProblems() {
-    $client = new Segment_Client("x", array(
+    $client = new Plainflow_Client("x", array(
         "consumer"      => "socket",
         "error_handler" => function () { throw new Exception("Was called"); }));
 
@@ -104,7 +104,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
                               throw new Exception("Response is not 400"); }
     );
 
-    $client = new Segment_Client("x", $options);
+    $client = new Plainflow_Client("x", $options);
 
     # Should error out with debug on.
     $client->track(array("user_id" => "some-user", "event" => "Socket PHP Event"));
@@ -118,7 +118,7 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
       "consumer" => "socket"
     );
 
-    $client = new Segment_Client("testsecret", $options);
+    $client = new Plainflow_Client("testsecret", $options);
 
     $big_property = "";
 
@@ -139,9 +139,9 @@ class ConsumerSocketTest extends PHPUnit_Framework_TestCase {
    * @expectedException \RuntimeException
    */
   function testConnectionError() {
-    $client = new Segment_Client("x", array(
+    $client = new Plainflow_Client("x", array(
       "consumer"      => "socket",
-      "host"          => "api.segment.ioooooo",
+      "host"          => "pipe.plainflow.wrong",
       "error_handler" => function ($errno, $errmsg) {
         throw new \RuntimeException($errmsg, $errno);
       },
