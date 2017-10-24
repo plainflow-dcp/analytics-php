@@ -15,8 +15,8 @@ release:
 	@printf "releasing ${VERSION}..."
 	@printf '<?php\nglobal $$PLAINFLOW_VERSION;\n$$PLAINFLOW_VERSION = "%b";\n?>' ${VERSION} > ./lib/Plainflow/Version.php
 	@node -e "var fs = require('fs'), pkg = require('./composer'); pkg.version = '${VERSION}'; fs.writeFileSync('./composer.json', JSON.stringify(pkg, null, '\t'));"
-	#@git changelog -t ${VERSION}
-	@git release ${VERSION}
+	@git tag ${VERSION}
+	@git push --tags
 
 clean:
 	rm -rf \
