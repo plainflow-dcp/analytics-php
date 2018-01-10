@@ -213,11 +213,11 @@ class Plainflow_Client {
    * @return array additional context
    */
   private function getDefaultContext () {
-    global $SEGMENT_VERSION;
+    global $PLAINFLOW_VERSION;
     return array(
       "library" => array(
         "name" => "plainflow-php",
-        "version" => $SEGMENT_VERSION,
+        "version" => $PLAINFLOW_VERSION,
         "consumer" => $this->consumer->getConsumer()
       )
     );
