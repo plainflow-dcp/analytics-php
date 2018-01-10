@@ -1,3 +1,8 @@
+1.5.2-p2 / 2018-01-10
+==================
+
+  * Fixed library version variable used to add lib. version to the events.
+
 1.5.2-p1 / 2017-10-24
 ==================
 
