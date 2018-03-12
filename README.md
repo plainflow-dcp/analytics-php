@@ -7,7 +7,7 @@ Plainflow-php is a php client for [Plainflow](https://www.plainflow.com)
 
 ## Documentation
 
-Documentation is available at [www.plainflow.com/docs/developers/sdk/php](https://www.plainflow.com/docs/developers/sdk/php)
+Documentation is available at [https://www.plainflow.com/docs/developers/data-tracking-libraries/php](https://www.plainflow.com/docs/developers/data-tracking-libraries/php)
 
 ## Releasing
 
